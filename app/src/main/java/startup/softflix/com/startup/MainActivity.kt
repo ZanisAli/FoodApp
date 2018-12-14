@@ -1,13 +1,14 @@
 package startup.softflix.com.startup
 
 import android.content.Context
-import android.os.BaseBundle
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import kotlinx.android.synthetic.main.activity_food_details.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.food_ticket.view.*
 
@@ -50,7 +51,16 @@ class MainActivity : AppCompatActivity() {
             var inflator= context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             //will get the ticket that we created and to work with the code
             var foodView= inflator.inflate(R.layout.food_ticket,null)
-            foodView.ivFoodimage.setImageResource(food.image!!)
+            foodView.ivFoodImage.setImageResource(food.image!!)
+            //if someone click on food image then it will open new activity with details
+            foodView.ivFoodImage.setOnClickListener()
+            {
+                val intent= Intent (context, FoodDetails::class.java)
+                intent.putExtra("name", food.name!!)
+                intent.putExtra("des",food.des!!)
+                intent.putExtra("image", food.image!!)
+                context!!.startActivity(intent)
+            }
             foodView.tvName.text= food.name!!
             return foodView
 
